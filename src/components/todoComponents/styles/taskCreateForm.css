@@ -1,0 +1,89 @@
+.form-field{
+    width: 100%;
+    background-color: purple;
+    border-radius: 0.4rem;
+    outline: none
+}
+.AddTask-btn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 0.5rem;
+    background-color: rgb(42, 116, 255);
+    padding: 0.9rem 1.8rem;
+    color: white;
+    border-radius:2rem;
+    box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.5);
+}
+.AddTask-btn span{
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+}
+.inputbox {
+    position: relative;
+    color: white;
+  }
+  
+  .inputbox input {
+    position: relative;
+    width: 100%;
+    padding: 40px 10px 10px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+  }
+  
+  .inputbox span {
+    position: absolute;
+    left: 0;
+    padding: 30px 10px 20px;
+    font-size: 1.2em;
+    color: #8f8f8f;
+    letter-spacing: 00.05em;
+    transition: 0.5s;
+    pointer-events: none;
+  }
+  
+  .inputbox input:valid ~span,
+  .inputbox input:focus ~span {
+    color: rgb(42, 116, 255);
+    transform: translateX(-10px) translateY(-42px);
+    font-size: 0,75em;
+  }
+  
+  .inputbox i {
+    position: absolute;
+    left: 0;
+    bottom:0;
+    width: 100%;
+    height: 2px;
+    background: rgb(42, 116, 255);
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+  }
+  
+  .inputbox input:valid ~i,
+  .inputbox input:focus ~i {
+    height: 55px;
+  }
+
+  .close-create-task{
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .task-creation-container{
+    transform: translateY(-200%);
+  }
+  .taskCreate-fields{
+    opacity: 0;
+    transform: translateY(200%);
+  }
