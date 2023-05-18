@@ -23,8 +23,8 @@ const Navbar = () => {
         opacity: 1,
         boxShadow:'5px 15px 25px rgba(0,0,0,0.3)'
       })
-      tl.current.from(".menu-card", {
-        x: "-500",
+      tl.current.to(".menu-card", {
+        x: 0,
         duration:0.7,
         stagger:0.1,
         ease: "back.out",

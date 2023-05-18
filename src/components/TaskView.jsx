@@ -8,17 +8,17 @@ import { gsap } from "gsap";
 import { useDispatch } from "react-redux";
 import { setMessage } from "../features/message/messageSlice";
 
-//setting the height of the body to the height of the window so that 
-// the height will not be affected by the navigation bar or other things in the browser
-// this is mainly to avoid scrolling in mobile devices
-window.addEventListener('load', function() {
-  var bodyElement = document.querySelector('body');
-  console.log(window.innerHeight)
-  bodyElement.style.height = window.innerHeight + 'px';
-});
+
 
 const TaskView = () => {
 
+  //setting the height of the body to the height of the window so that 
+  // the height will not be affected by the navigation bar or other things in the browser
+  // this is mainly to avoid scrolling in mobile devices
+  window.addEventListener('load', function() {
+    var bodyElement = document.querySelector('body');
+    bodyElement.style.height = window.innerHeight + 'px';
+  });
 
   const tl=useRef()
   const dispatch =useDispatch()
@@ -54,8 +54,6 @@ const TaskView = () => {
     tl.current.reverse()
     dispatch(setMessage('New task added!!'))
   }
-
-
 
   return (
 

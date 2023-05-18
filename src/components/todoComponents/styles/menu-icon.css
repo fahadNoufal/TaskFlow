@@ -50,3 +50,8 @@
   transition-duration: 0.3s;
   transform-origin: left center;
 }
+
+/* menu component styles */
+.menu-card{
+  transform: translateX(-500px);
+}
