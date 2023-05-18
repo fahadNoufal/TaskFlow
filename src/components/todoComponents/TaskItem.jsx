@@ -52,12 +52,7 @@ const TaskItem = ({ title, description, since, id }) => {
   useEffect(()=>{
 
     if (expanded){
-      gsap.fromTo(`.expand-task-${id}`, {
-        height: '0',
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.inOut'
-      }, { 
+      gsap.to(`.expand-task-${id}`,{ 
         height: 'auto',
         duration: 0.6,
         opacity: 1,
@@ -101,7 +96,7 @@ const TaskItem = ({ title, description, since, id }) => {
 
   const Expand=()=>{
     return(
-        <div className={`expand-task-${id} expand-task overflow-hidden`} >
+        <div className={`expand-task-${id} expand-task overflow-hidden h-0 opacity-0`} >
           <p className="task-description text-description font-thin leading-3 pt-2 pl-6 pr-2">
             {description}
           </p>

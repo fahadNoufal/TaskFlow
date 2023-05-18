@@ -5,7 +5,7 @@ const messageSlice = createSlice({
     initialState: {message: ''},
     reducers: {
         setMessage: (state, action) => {
-            
+            state.message = action.payload;
         }
     }
 })
