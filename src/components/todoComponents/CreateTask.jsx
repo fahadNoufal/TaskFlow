@@ -5,7 +5,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../features/taskList/taskListSlice";
 
-const CreateTask = ({ closeTaskCreation, handleAddTask }) => {
+const CreateTask = ({ closeTaskCreation, handleAddTask,  }) => {
   const despatch = useDispatch();
 
   let input1=useRef()

@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMessage } from "../../features/message/messageSlice";
 
-
 gsap.registerPlugin(TextPlugin)
 const words=[' Focus..','Finish..','Conquer!'] //'Lets finish some task'
 
@@ -14,7 +13,6 @@ const Header = () => {
   let dispatch=useDispatch()
 
   const msgTl = useRef();
-
   
 
   useEffect(() => {
@@ -100,13 +98,19 @@ const Header = () => {
     if (message!==''){
       const cxt = gsap.context(() => {
         msgTl.current = gsap.timeline();
+        gsap.to('.notification-icon',{
+          color:'#97ba5e',
+          duration:1.3,
+          yoyo:true,
+          repeat:5,
+        });
         msgTl.current.to(".welcome-msg", {
           x: "-200%",
           delay:1.3,
           duration: 0.8,
           opacity: 0,
           ease: "power3.inOut",
-        });
+        },'<');
         msgTl.current.to('.message-txt',{
           duration:0.5,
           x:0,
@@ -153,11 +157,14 @@ const Header = () => {
         <div className="task-stats-header">
           <h3 className=" opacity-60 text-xs font-bold">ACTIVITIES</h3>
         </div>
-        <div className="task-stats font-extrabold bg-dbbg rounded-2xl py-2 px-4 my-2 -mx-1 ">
+        <div className="task-stats font-extrabold relative bg-dbbg rounded-2xl py-2 px-4 my-2 -mx-1 ">
           <h5 className=" text-xs font-medium opacity-50">Task Stats </h5>
           <h4 className="item-header">
-            Total Completed Tasks : <span>4/5</span>
+            Total Completed Tasks : 
           </h4>
+          <div className="progress-bar h-2 mt-3 mb-5  flex w-full justify-start ">
+            <div className="progress"></div>
+          </div>
         </div>
       </div>
     </div>

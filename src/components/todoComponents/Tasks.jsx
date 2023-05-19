@@ -10,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 const Tasks = () => {
+  
   let taskData = useSelector((state)=>(state.taskList.data))
 
   useEffect(() => {

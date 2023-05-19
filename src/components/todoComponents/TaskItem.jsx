@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./styles/checkbox.css";
 import useDoubleClick from "use-double-click";
 import { gsap } from "gsap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeTask,
   toggleTaskComplete,
@@ -17,6 +17,7 @@ const TaskItem = ({ title, description, since, id }) => {
   
   // to edit the task (delete or change if task is completed)
   let dispatch = useDispatch();
+  let darkMode= useSelector((state)=>(state.darkMode.darkMode))
 
   // to expand the description of the task based on user click
   let [expanded, setExpanded] = useState(false);
@@ -47,23 +48,29 @@ const TaskItem = ({ title, description, since, id }) => {
         ease: "power3.out",
         x: 0,
       });
+      gsap.to(`.task-item-${id} .task-title`, {
+        textDecoration:'line-through',
+      })
       gsap.to(`.task-item-${id}`, {
-        backgroundColor: "rgba(100, 12, 118, 0.571)",
+        backgroundColor: ()=>darkMode? "rgba(100, 12, 118, 0.571)":"#FFE898" ,
       });
       if (expanded) {
         handleSingleClick();
       }
       dispatch(setMessage('Bravo! Mission Done..'))
     } else {
-      gsap.to(`.strike-title-${id}`, {
+      gsap.to(`.strike-title-${id}`, { 
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
         x: "-200%",
       });
       gsap.to(`.task-item-${id}`, {
-        backgroundColor: "#0C134F",
+        backgroundColor:()=> darkMode?"#0C134F":"#E6DDC4",
       });
+      gsap.to(`.task-item-${id} .task-title`, {
+        textDecoration:'none',
+      })
     }
   }, [taskCompleted]);
 
@@ -203,7 +210,7 @@ const TaskItem = ({ title, description, since, id }) => {
         </div>
         <div className=" task-title item-header flex relative justify-center items-center ">
           <div className={`strike-title-${id} strike-title`}></div>
-          <div className=" opacity-4">{title}</div>
+          <div className=" opacity-4 task-title">{title}</div>
         </div>
         <div className="time-since text-xxs opacity-50 font-light absolute top-1 right-3">
           {since} ago

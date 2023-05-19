@@ -17,8 +17,12 @@ body {
     height:100%
 }
 
+#task-screen{
+  z-index: 1;
+}
+
 .item-container {
-  background-color: #0c134f;
+  /* background-color: #0c134f; */
   border-radius: 18px;
   padding: 1.2rem 1rem;
   margin: 0.25rem 0;
@@ -37,8 +41,9 @@ body {
 }
 
 .btn {
-  background: rgba(128, 0, 128, 0.99);
-  color: rgba(255, 255, 255, 0.752);
+
+  background:rgba(128, 0, 128, 0.99) ;
+  color: #fff;
   border-radius: 0.4rem;
   text-align: center;
   font-size: 0.7rem;
@@ -91,6 +96,35 @@ body {
 .add-task-btn {
   background-color: #3a1078;
 }
+
 .title {
   font-family: "Oswald", sans-serif;
+}
+
+.progress-bar{
+  background-color: grey;
+  border-radius: 4px;
+}
+.progress-bar::before{
+  content: '0%';
+  position: absolute;
+  font-size: 0.7rem;
+  bottom:0.75rem;
+  left: 1rem;
+  font-weight: 300;
+  font-family:monospace;
+}
+.progress-bar::after{
+  content: '100%';
+  position: absolute;
+  font-size: 0.7rem;
+  bottom: 0.75rem;
+  right: 1rem;
+  font-weight: 300;
+  font-family:monospace;
+}
+.progress{
+  border-radius: 5px;
+  width: 60%;
+  background-color: #C780FA;
 }
