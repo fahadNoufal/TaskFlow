@@ -31,7 +31,7 @@ const Header = () => {
       const welcomeTl=gsap.timeline()
       const wordTl=gsap.timeline()
 
-      let welcomeMessage="What's up, Olivia!"
+      let welcomeMessage="What's up, Warrior!"
       let tl=gsap.timeline({yoyo:true,repeat:1,repeatDelay:1})
       tl.to('.head-text',{
         duration:1,

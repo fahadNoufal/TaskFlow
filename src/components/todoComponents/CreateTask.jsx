@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./styles/taskCreateForm.css";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
@@ -8,7 +8,13 @@ import { addTask } from "../../features/taskList/taskListSlice";
 const CreateTask = ({ closeTaskCreation, handleAddTask }) => {
   const despatch = useDispatch();
 
+  let input1=useRef()
+  let input2=useRef()
+
   function handleSubmit() {
+    input1.current.blur()
+    input2.current.blur()
+
     setTitle("");
     setDescription("");
     despatch(
@@ -41,6 +47,7 @@ const CreateTask = ({ closeTaskCreation, handleAddTask }) => {
         >
           <div className="inputbox cursor-pointer taskCreate-fields">
             <input
+              ref={input1}
               required="required"
               type="text"
               name="title"
@@ -54,6 +61,7 @@ const CreateTask = ({ closeTaskCreation, handleAddTask }) => {
           </div>
           <div className="inputbox taskCreate-fields">
             <input
+              ref={input2}
               required="required"
               name="description"
               type="text"

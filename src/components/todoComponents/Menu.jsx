@@ -24,9 +24,8 @@ const Menu = () => {
               {/* Paste profile image */}
               <img className=" rounded-full" src={profile} alt="" />
             </div>
-            <div className="name text-3xl font-mono font-bold">
-              <h1>Olivia</h1>
-              <h1>Mitchell</h1>
+            <div className="name text-3xl font-mono font-bold tracking-widest">
+              <h1>Anonymous Visitor </h1>
             </div>
           </div>
           <div className="menu-list  menu-card opacity-70 flex flex-col gap-1 my-7">

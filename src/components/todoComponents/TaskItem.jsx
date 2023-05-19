@@ -8,15 +8,25 @@ import {
   toggleTaskComplete,
 } from "../../features/taskList/taskListSlice";
 import { setMessage } from "../../features/message/messageSlice";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger)
+
+// task items details gets passed in as props :
 const TaskItem = ({ title, description, since, id }) => {
+  
+  // to edit the task (delete or change if task is completed)
   let dispatch = useDispatch();
 
+  // to expand the description of the task based on user click
   let [expanded, setExpanded] = useState(false);
   let [taskCompleted, setTaskCompleted] = useState(false);
 
   const buttonRef = useRef();
 
+  // this is imported from 'useDoubleClick' to handle double click and single click
+  // if there is only a single click, then the  expanded state toggles with animation
+  // if double click it changes task completed state
   useDoubleClick({
     onSingleClick: (e) => {
       handleSingleClick();
@@ -28,6 +38,7 @@ const TaskItem = ({ title, description, since, id }) => {
     latency: 220,
   });
 
+  // this useeffect is used to animate and task completion animation based on state
   useEffect(() => {
     if (taskCompleted) {
       gsap.to(`.strike-title-${id}`, {
@@ -56,26 +67,52 @@ const TaskItem = ({ title, description, since, id }) => {
     }
   }, [taskCompleted]);
 
+  // this is used to animate close expanded task with animation
   useEffect(() => {
     if (expanded) {
       gsap.to(`.expand-task-${id}`, {
         height: "auto",
-        duration: 0.6,
+        duration: 0.5,
         opacity: 1,
         ease: "power3.inOut",
+        onComplete:()=>{ScrollTrigger.refresh();},
       });
     }
   }, [expanded]);
+
+  // used for scroll animation
+  useEffect(()=>{
+    let scrollCtx=gsap.context(()=>{
+      gsap.to(`.task-item-${id}`, {
+        y:-100,
+        opacity:0,
+        ease:'back.in(0.7)',
+        scrollTrigger: {
+          trigger: `.task-item-${id}`,
+          scroller:'.task-item-container',
+          toggleActions: 'restart pause reverse pause',
+          start: 'top top',
+          endTrigger: `.task-item-${id}`,
+          end: 'bottom top',
+          scrub: 1.5,
+        }
+      });
+
+    })
+    return ()=>{scrollCtx.revert();}
+  },[])
 
   function handleSingleClick() {
     if (expanded) {
       gsap.to(`.expand-task-${id}`, {
         height: "0",
         opacity: 0,
-        duration: 0.4,
-        ease: "power3.Out",
+        duration: 0.5,
+        ease: "power3.out",
         onComplete: () => {
           setExpanded(false);
+          // refreshes the whole scrolltrigger position because the height of task item changes dynamically
+          ScrollTrigger.refresh()
         },
       });
     } else {
@@ -83,28 +120,36 @@ const TaskItem = ({ title, description, since, id }) => {
     }
   }
 
+  // deleting the task if delete button is clicked
   function handleTaskDelete(e, id) {
     e.preventDefault();
-    gsap.to(`.task-item-${id}`, {
+      gsap.to(`.task-item-${id}`, {
       height: 0,
+      opacity:0,
       margin: 0,
       padding: 0,
       ease: "power3.easeOut",
       duration: 0.5,
       onComplete: () => {
-        document.getElementsByClassName(`task-item-${id}`)[0].style.display =
+        //deleting the element from DOM and redux state
+        document.getElementsByClassName(`task-item-${id}`)[0].styledisplay =
           "none";
         dispatch(removeTask(id));
       },
     });
+    gsap.to(`.task-item-${id} .checkbox-container`,{
+      opacity:0,
+      duration: 0.5,
+    });
   }
-
+  
+  // react element => task expanded
   const Expand = () => {
     return (
       <div
         className={`expand-task-${id} expand-task overflow-hidden h-0 opacity-0`}
       >
-        <p className="task-description text-description font-thin leading-3 pt-2 pl-6 pr-2">
+        <p className="text-description mb-1 font-thin text-sm leading-4 pt-2 pl-6 pr-2">
           {description}
         </p>
         <div className=" ml-5 mr-2 mb-1 task-edit-div flex justify-between gap-2">

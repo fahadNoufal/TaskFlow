@@ -10,6 +10,7 @@ module.exports = {
         bbg:'#3E54AC',//blue background
         cbg:'#7286D3',//container background
         icon:'#BFDCE5',
+        darkBg:'#1A120B',
       },
       width:{
         tc:'380px', //Task Container

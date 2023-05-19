@@ -1,10 +1,13 @@
 import TaskItem from "./TaskItem";
 import { gsap } from "gsap";
 import { CSSPlugin } from "gsap/CSSPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 gsap.registerPlugin(CSSPlugin);
+gsap.registerPlugin(ScrollTrigger);
+
 
 const Tasks = () => {
   let taskData = useSelector((state)=>(state.taskList.data))
@@ -20,8 +23,10 @@ const Tasks = () => {
           amount: 0.2,
         },
         ease: "back.out(0.3)",
+        onComplete:()=>{ScrollTrigger.refresh()}
       });
     });
+
     return () => ctx.revert();
   },[]);
 
@@ -37,11 +42,11 @@ const Tasks = () => {
   ));
 
   return (
-    <div className="flex flex-col overflow-auto overflow-x-hidden  ">
+    <div className="flex flex-col overflow-auto overflow-x-hidden  "  >
       <h3 className=" opacity-60 ttt text-xs font-bold mt-3 mb-2">
         TODAYS TASKS
       </h3>
-      <div className=" task-item-container flex-grow overflow-auto tasks-container">
+      <div className=" task-item-container flex-grow overflow-x-hidden overflow-auto tasks-container" >
         <div className="task-list">{TaskItems}</div>
       </div>
     </div>

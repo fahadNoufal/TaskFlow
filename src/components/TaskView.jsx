@@ -15,10 +15,9 @@ const TaskView = () => {
   //setting the height of the body to the height of the window so that 
   // the height will not be affected by the navigation bar or other things in the browser
   // this is mainly to avoid scrolling in mobile devices
-  window.addEventListener('load', function() {
-    var bodyElement = document.querySelector('body');
-    bodyElement.style.height = window.innerHeight + 'px';
-  });
+  var body = document.querySelector('body');
+  body.style.height = window.innerHeight + 'px';
+
 
   const tl=useRef()
   const dispatch =useDispatch()
@@ -57,7 +56,7 @@ const TaskView = () => {
 
   return (
 
-    <div className="relative  page-wrapper bg-bbg  h-screen overflow-hidden w-full md:bg-cbg flex justify-center items-center select-none">
+    <div className="relative  page-wrapper bg-bbg h-full  md:h-screen overflow-hidden w-full md:bg-cbg flex justify-center items-center select-none">
       <Menu/>
       <div
         // w-tc h-3/4 rounded-2xl (for large screens)

@@ -2,84 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    color:white
+body {
+  color: white;
 }
 
-.item-container{
-    background-color: #0C134F;
-    border-radius:18px;
-    padding: 0.9rem 1rem ;
-    margin:  0.25rem 0;
+@media screen and (max-width: 768px) {
+  body {
+    orientation: portrait;
+    user-select: none;
+  }
 }
 
-.item-header{
-    font-weight: 500;
-    font-size: 0.8rem;
+#root, .App{
+    height:100%
 }
 
-.item-header span{
-    display: block;
-    text-align: center;
-    font-size: 1rem;
-    color: violet;
+.item-container {
+  background-color: #0c134f;
+  border-radius: 18px;
+  padding: 1.2rem 1rem;
+  margin: 0.25rem 0;
 }
 
-.btn{
-    background:rgba(128, 0, 128, 0.99);
-    color: rgba(255, 255, 255, 0.752);
-    border-radius: 0.4rem;
-    text-align: center;
-    font-size: 0.7rem;
-    font-weight: 500;
-    margin-top: 0.4rem;
-    padding: 0.2rem 0;
+.item-header {
+  font-weight: 500;
+  font-size: 1rem;
 }
 
-.tasks-container::-webkit-scrollbar{
-    width: 0px;
+.item-header span {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  color: violet;
 }
 
-.fade-container{
-    background: linear-gradient(#3e54ac00 ,#3E54AC );
+.btn {
+  background: rgba(128, 0, 128, 0.99);
+  color: rgba(255, 255, 255, 0.752);
+  border-radius: 0.4rem;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 500;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0;
+}
+
+.tasks-container::-webkit-scrollbar {
+  width: 0px;
+}
+
+.fade-container {
+  background: linear-gradient(#3e54ac00, #3e54ac);
 }
 
 .profile-pic {
-    border: 2px solid #4195fc;
-    box-shadow:  0px 0px 8px #4195fc
+  border: 2px solid #4195fc;
+  box-shadow: 0px 0px 8px #4195fc;
 }
-.menu-item{
-    padding: 0.3rem 0;
-    display: flex;
-    font-size: 1rem;
-    gap: 0.4rem;
-    transition: all 0.2s ease;
-    display: flex;
-    justify-content: start;
-    align-items: center;
+.menu-item {
+  padding: 0.3rem 0;
+  display: flex;
+  font-size: 1rem;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 }
-.menu-item:hover{
-    color:violet
-}
-
-.menu-item-icon{
-    font-size: small;
-    color: violet;
+.menu-item:hover {
+  color: violet;
 }
 
-.strike-title{
-    height:2px;
-    width: 100%;
-    transform:translateX(-200%);
-    opacity: 0;
-    margin-top: 2px;
-    background-color: green;
-    position: absolute;
+.menu-item-icon {
+  font-size: small;
+  color: violet;
 }
 
-.add-task-btn{
-    background-color: #3A1078;
+.strike-title {
+  height: 2px;
+  width: 100%;
+  transform: translateX(-200%);
+  opacity: 0;
+  margin-top: 2px;
+  background-color: green;
+  position: absolute;
 }
-.title{
-    font-family: 'Oswald', sans-serif;
+
+.add-task-btn {
+  background-color: #3a1078;
+}
+.title {
+  font-family: "Oswald", sans-serif;
 }
