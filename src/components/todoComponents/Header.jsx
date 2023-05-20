@@ -103,10 +103,11 @@ const Header = () => {
           duration:1.3,
           yoyo:true,
           repeat:5,
+          onComplete:()=>{gsap.to('.notification-icon',{color:'white' })}
         });
         msgTl.current.to(".welcome-msg", {
           x: "-200%",
-          delay:1.3,
+          delay:0.3,
           duration: 0.8,
           opacity: 0,
           ease: "power3.inOut",
@@ -129,6 +130,16 @@ const Header = () => {
           repeatDelay:0.2,
           onComplete:()=>{
             msgTl.current.reverse()
+            msgTl.current.eventCallback("onReverseComplete", function () {
+              // This function will execute after the timeline's reverse animation completes
+              gsap.to(".welcome-msg", {
+                x: "0",
+                delay:0.3,
+                duration: 0.8,
+                opacity: 1,
+                ease: "power3.inOut",
+              });
+            });
             dispatch(setMessage(''))
           }
         })

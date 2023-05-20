@@ -51,11 +51,11 @@ const Menu = () => {
           <div className="graph  menu-card w-full pr-10">
             <div className="h-20 w-full rounded-lg overflow-hidden">
                 <img 
-                    className=" object-cover rounded-lg "
+                    className=" object-cover rounded-lg -ml-2 "
                     src={graph} alt="" 
                 />
             </div>
-            <h2 className="pt-5 opacity-80 font-mono font-semibold tracking-widest md:-mt-8">
+            <h2 className="opacity-80 font-mono font-semibold tracking-widest ">
                 Consistancy
             </h2>
           </div>

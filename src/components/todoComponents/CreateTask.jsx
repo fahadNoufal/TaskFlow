@@ -2,14 +2,33 @@ import React, { useEffect, useRef, useState } from "react";
 import "./styles/taskCreateForm.css";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { addTask, editTask } from "../../features/taskList/taskListSlice";
+import { gsap } from "gsap";
 import { useDispatch } from "react-redux";
-import { addTask } from "../../features/taskList/taskListSlice";
+import { setMessage } from "../../features/message/messageSlice";
 
-const CreateTask = ({ closeTaskCreation, handleAddTask,  }) => {
+const CreateTask = ({ tl ,titleToEdit='',descriptionToEdit='',edit=false,id=0 }) => {
   const despatch = useDispatch();
-
   let input1=useRef()
   let input2=useRef()
+
+  const dispatch =useDispatch()
+  
+  
+
+  function handleCloseTaskCreation(){
+    tl.current.pause()
+    tl.current.reverse()
+  }
+
+  function handleAddTask(){
+    tl.current.pause()
+    tl.current.reverse()
+    setTimeout(() => {
+      dispatch(setMessage('New task added!!'))
+    }, '1000');
+  }
+// ________________________________________________________________________________________________
 
   function handleSubmit() {
     input1.current.blur()
@@ -17,18 +36,28 @@ const CreateTask = ({ closeTaskCreation, handleAddTask,  }) => {
 
     setTitle("");
     setDescription("");
-    despatch(
-      addTask({
-        title: title,
-        description: description,
-        id: Math.floor(Math.random() * (99999 - 0 + 1)) + 0,
-      })
-    );
+    if (edit){
+
+      despatch(editTask({
+        title:title,
+        description:description,
+        id:id,
+      }))
+
+    }else{
+      despatch(
+        addTask({
+          title: title,
+          description: description,
+          id: Math.floor(Math.random() * (99999 - 0 + 1)) + 0,
+        })
+      );
+    }
     handleAddTask();
   }
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState(edit?titleToEdit:'');
+  const [description, setDescription] = useState(edit?descriptionToEdit:'');
 
   return (
     <div className=" task-creation-container top-0 bottom-0 left-0 right-0 bg-white z-50 shadow-2xl px-10 py-10 flex flex-col md:rounded-2xl absolute ">
@@ -84,7 +113,7 @@ const CreateTask = ({ closeTaskCreation, handleAddTask,  }) => {
         </form>
         <div
           className="close-create-task border-2 text-black border-solid p-2 rounded-full"
-          onClick={closeTaskCreation}
+          onClick={handleCloseTaskCreation}
         >
           <CloseOutlinedIcon fontSize="large" />
         </div>

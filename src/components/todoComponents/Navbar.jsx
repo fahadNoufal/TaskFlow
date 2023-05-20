@@ -13,13 +13,16 @@ const Navbar = () => {
   const showMenu=useSelector((state)=>(state.isMenuDisplayed.displayed));
 
   const darkMode = useSelector((state)=>(state.darkMode.darkMode))
-
+  
   useEffect(()=>{
+    const viewportWidth = window.innerWidth;
+    
     let ctx=gsap.context(()=>{
       tl.current = gsap.timeline({paused:true});
       tl.current.to('.tasksScreen',{
         duration:0.7,
-        scale: 0.84,
+        scale: `${(viewportWidth<768)?'1':'0.85'}`,
+        y:`${(viewportWidth<768)?'50px':'0'}`,
         x: "65%",
         borderRadius: "2.7rem",
         ease: "back.out",
@@ -90,7 +93,7 @@ const Navbar = () => {
         "<"
       )
       darkTl.current.to(
-        ".item-container",
+        [".item-container",'.task-item'],
         {
           backgroundColor: " #E6DDC4",
         },
@@ -125,7 +128,7 @@ const Navbar = () => {
   },[darkMode])
 
   return (
-    <nav className=' flex items-center justify-between h-10 text-icon'>
+    <nav className=' flex items-center justify-between h-10 text-white'>
         <div className=" opacity-70 nav-menu-icon nav-icon-container">
             <input 
               type="checkbox" 

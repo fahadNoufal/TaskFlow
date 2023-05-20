@@ -5,8 +5,6 @@ import Tasks from "./todoComponents/Tasks";
 import Menu from "./todoComponents/Menu";
 import CreateTask from "./todoComponents/CreateTask";
 import { gsap } from "gsap";
-import { useDispatch, useSelector } from "react-redux";
-import { setMessage } from "../features/message/messageSlice";
 
 
 
@@ -33,10 +31,8 @@ const TaskView = () => {
   var previousHeight = window.innerHeight || document.documentElement.clientHeight;
 
   //----------------------------------------------------------------------------------
-
   let tl=useRef()
-  const dispatch =useDispatch()
-  
+
   function handleTaskCreation(){
     tl.current=gsap.timeline()
     
@@ -56,17 +52,6 @@ const TaskView = () => {
       duration:0.5,
       ease:'power3.out'
     })
-  }
-
-  function handleCloseTaskCreation(){
-    tl.current.pause()
-    tl.current.reverse()
-  }
-
-  function handleAddTask(){
-    tl.current.pause()
-    tl.current.reverse()
-    dispatch(setMessage('New task added!!'))
   }
 
   return (
@@ -89,11 +74,8 @@ const TaskView = () => {
         >
           + 
         </div>
-        <div className="create-task-view dis "> 
-          <CreateTask 
-            closeTaskCreation={handleCloseTaskCreation} 
-            handleAddTask={handleAddTask}
-          /> 
+        <div className="create-task-view dis  "> 
+          <CreateTask tl={tl} /> 
         </div>
       </div>
     </div> 

@@ -120,25 +120,11 @@ const taskListSlice=createSlice({
     name:'taskList',
     initialState,
     reducers:{
-        // addTask:(state,{payload})=>{
-        //     let newState=[
-        //     {
-        //       title:payload.title,
-        //       description:payload.description,
-        //       since:payload.since,
-        //       completed:false
-        //     },
-        //     ...state.data,
-            
-        //     ]
-        //     state.data=newState
-
-        // },
         addTask: (state, { payload }) => {
           const newTask = {
             title: payload.title,
             description: payload.description,
-            since: payload.since,
+            since: '1m',
             id:payload.id,
             completed: false
           };
@@ -161,9 +147,13 @@ const taskListSlice=createSlice({
             let data=state.data;
             let newData=data.map((task)=>(task.id===payload)?{...task,completed:!task.completed}:{...task})
             state.data=newData
+        },
+        editTask: (state,{payload})=>{
+            let newData= state.data.map((task)=>(task.id===payload.id?{...task,description:payload.description,title:payload.title}:{...task}))
+            state.data=newData;
         }
     }
 })
 
-export const {addTask,removeTask,toggleTaskComplete}=taskListSlice.actions
+export const {addTask,removeTask,toggleTaskComplete,editTask}=taskListSlice.actions
 export default taskListSlice.reducer

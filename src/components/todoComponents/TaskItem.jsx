@@ -10,20 +10,21 @@ import {
 import { setMessage } from "../../features/message/messageSlice";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger)
+
+gsap.registerPlugin(ScrollTrigger);
 
 // task items details gets passed in as props :
-const TaskItem = ({ title, description, since, id }) => {
-  
+const TaskItem = ({ title, description, since, id, completed }) => {
   // to edit the task (delete or change if task is completed)
   let dispatch = useDispatch();
-  let darkMode= useSelector((state)=>(state.darkMode.darkMode))
+  let darkMode = useSelector((state) => state.darkMode.darkMode);
 
   // to expand the description of the task based on user click
   let [expanded, setExpanded] = useState(false);
-  let [taskCompleted, setTaskCompleted] = useState(false);
+  const taskCompleted = completed;
 
   const buttonRef = useRef();
+  const descriptionRef = useRef();
 
   // this is imported from 'useDoubleClick' to handle double click and single click
   // if there is only a single click, then the  expanded state toggles with animation
@@ -33,13 +34,22 @@ const TaskItem = ({ title, description, since, id }) => {
       handleSingleClick();
     },
     onDoubleClick: (e) => {
-      setTaskCompleted(!taskCompleted);
+      dispatch(toggleTaskComplete(id));
+       
     },
     ref: buttonRef,
     latency: 220,
   });
 
+  useEffect(()=>{
+    gsap.to(`.task-item-${id}`, {
+      backgroundColor: () => (darkMode ? "#0C134F" : "#E6DDC4"),
+    });
+    
+  },[darkMode])
+
   // this useeffect is used to animate and task completion animation based on state
+  
   useEffect(() => {
     if (taskCompleted) {
       gsap.to(`.strike-title-${id}`, {
@@ -49,78 +59,56 @@ const TaskItem = ({ title, description, since, id }) => {
         x: 0,
       });
       gsap.to(`.task-item-${id} .task-title`, {
-        textDecoration:'line-through',
-      })
-      gsap.to(`.task-item-${id}`, {
-        backgroundColor: ()=>darkMode? "rgba(100, 12, 118, 0.571)":"#FFE898" ,
+        textDecoration: "line-through",
       });
-      if (expanded) {
-        handleSingleClick();
-      }
-      dispatch(setMessage('Bravo! Mission Done..'))
+      gsap.to(`.task-item-${id}`, {
+        backgroundColor: () =>
+          darkMode ? "rgba(100, 12, 118, 0.571)" : "#FFE898",
+      });
+      dispatch(setMessage("Bravo! Mission Done.."));
     } else {
-      gsap.to(`.strike-title-${id}`, { 
+      gsap.to(`.strike-title-${id}`, {
         opacity: 0,
         duration: 0.5,
         ease: "power3.out",
         x: "-200%",
       });
       gsap.to(`.task-item-${id}`, {
-        backgroundColor:()=> darkMode?"#0C134F":"#E6DDC4",
+        backgroundColor: () => (darkMode ? "#0C134F" : "#E6DDC4"),
       });
       gsap.to(`.task-item-${id} .task-title`, {
-        textDecoration:'none',
-      })
+        textDecoration: "none",
+      });
     }
   }, [taskCompleted]);
 
   // this is used to animate close expanded task with animation
+  let expandTl = useRef();
   useEffect(() => {
+    expandTl.current = gsap.timeline();
     if (expanded) {
-      gsap.to(`.expand-task-${id}`, {
+      gsap.to('.btn',{
+        backgroundColor:`${darkMode? 'rgba(128, 0, 128, 0.99)':'#C780FA'}`,
+      })
+      expandTl.current.to(`.expand-task-${id}`, {
         height: "auto",
         duration: 0.5,
         opacity: 1,
         ease: "power3.inOut",
-        onComplete:()=>{ScrollTrigger.refresh();},
+        onComplete: () => {
+          ScrollTrigger.refresh();
+        },
       });
     }
   }, [expanded]);
 
-  // used for scroll animation
-  useEffect(()=>{
-    let scrollCtx=gsap.context(()=>{
-      gsap.to(`.task-item-${id}`, {
-        y:-100,
-        opacity:0,
-        ease:'back.in(0.7)',
-        scrollTrigger: {
-          trigger: `.task-item-${id}`,
-          scroller:'.task-item-container',
-          toggleActions: 'restart pause reverse pause',
-          start: 'top top',
-          endTrigger: `.task-item-${id}`,
-          end: 'bottom top',
-          scrub: 1.5,
-        }
-      });
-
-    })
-    return ()=>{scrollCtx.revert();}
-  },[])
-
   function handleSingleClick() {
     if (expanded) {
-      gsap.to(`.expand-task-${id}`, {
-        height: "0",
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.out",
-        onComplete: () => {
-          setExpanded(false);
-          // refreshes the whole scrolltrigger position because the height of task item changes dynamically
-          ScrollTrigger.refresh()
-        },
+      expandTl.current.reverse();
+      expandTl.current.eventCallback("onReverseComplete", function () {
+        // This function will execute after the timeline's reverse animation completes
+        setExpanded(false);
+        ScrollTrigger.refresh();
       });
     } else {
       setExpanded(true);
@@ -130,9 +118,9 @@ const TaskItem = ({ title, description, since, id }) => {
   // deleting the task if delete button is clicked
   function handleTaskDelete(e, id) {
     e.preventDefault();
-      gsap.to(`.task-item-${id}`, {
+    gsap.to(`.task-item-${id}`, {
       height: 0,
-      opacity:0,
+      opacity: 0,
       margin: 0,
       padding: 0,
       ease: "power3.easeOut",
@@ -144,26 +132,51 @@ const TaskItem = ({ title, description, since, id }) => {
         dispatch(removeTask(id));
       },
     });
-    gsap.to(`.task-item-${id} .checkbox-container`,{
-      opacity:0,
+    gsap.to(`.task-item-${id} .checkbox-container`, {
+      opacity: 0,
       duration: 0.5,
     });
   }
-  
+
+  // used for scroll animation
+  useEffect(() => {
+    let scrollCtx = gsap.context(() => {
+      gsap.to(`.task-item-${id}`, {
+        y: -100,
+        opacity: 0,
+        ease: "back.in(0.7)",
+        scrollTrigger: {
+          trigger: `.task-item-${id}`,
+          scroller: ".task-item-container",
+          toggleActions: "restart pause reverse pause",
+          start: "top top",
+          endTrigger: `.task-item-${id}`,
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+      
+    });
+    return () => {
+      scrollCtx.revert();
+    };
+  }, []);
+
   // react element => task expanded
   const Expand = () => {
     return (
       <div
+        ref={descriptionRef}
         className={`expand-task-${id} expand-task overflow-hidden h-0 opacity-0`}
       >
         <p className="text-description mb-1 font-thin text-sm leading-4 pt-2 pl-6 pr-2">
           {description}
         </p>
         <div className=" ml-5 mr-2 mb-1 task-edit-div flex justify-between gap-2">
-          <a href="none" className="btn dit-btn flex-1">
+          <button href="none" className=" btn edit-btn flex-1">
             EDIT
-          </a>
-          <a
+          </button>
+          <button
             href=" "
             className="btn delete-btn flex-1"
             onClick={(e) => {
@@ -171,7 +184,7 @@ const TaskItem = ({ title, description, since, id }) => {
             }}
           >
             DELETE
-          </a>
+          </button>
         </div>
       </div>
     );
@@ -181,22 +194,21 @@ const TaskItem = ({ title, description, since, id }) => {
     <div
       ref={buttonRef}
       className={` task-item-${id} task-item item-container relative select-none `}
+      id={` task-item`}
     >
       <div className="flex items-center gap-2 ">
-        <div className="checkbox-container z-20">
+        <div className="checkbox-container z-20 ">
           <input
             type="checkbox"
             className="checkbox-input"
             id={`checkbox-for-${id}`}
             checked={taskCompleted}
             onChange={() => {
-              setTaskCompleted(!taskCompleted);
-              dispatch(toggleTaskComplete(id));
+               
             }}
             style={{ display: "none" }}
           />
-          {/* Pass in an id property other than the 'title */}
-          <label htmlFor={`checkbox-for-${id}`} className="check">
+          <label htmlFor={`checkbox-for-${id}`} className="check"  >
             <svg
               width="18px"
               height="18px"
@@ -208,12 +220,15 @@ const TaskItem = ({ title, description, since, id }) => {
             </svg>
           </label>
         </div>
-        <div className=" task-title item-header flex relative justify-center items-center ">
-          <div className={`strike-title-${id} strike-title`}></div>
-          <div className=" opacity-4 task-title">{title}</div>
-        </div>
-        <div className="time-since text-xxs opacity-50 font-light absolute top-1 right-3">
-          {since} ago
+        <div className="item-details-container flex flex-grow" >
+          <div className="  task-title item-header  flex relative justify-center items-center ">
+            <div className={`strike-title-${id} strike-title`}></div>
+            <div className=" opacity-4 task-title">{title}</div>
+          </div>
+          <div className="flex-grow opacit-0 "></div>
+          <div className="time-since text-xxs opacity-50 font-light absolute top-1 right-3">
+            {since} ago
+          </div>
         </div>
       </div>
       {expanded ? <Expand /> : ""}

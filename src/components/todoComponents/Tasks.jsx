@@ -10,6 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 const Tasks = () => {
+
+  let darkMode=useSelector((state)=>state.darkMode.darkMode)
   
   let taskData = useSelector((state)=>(state.taskList.data))
 
@@ -26,10 +28,16 @@ const Tasks = () => {
         ease: "back.out(0.3)",
         onComplete:()=>{ScrollTrigger.refresh()}
       });
+      gsap.to('.progress',{
+        x:'-40%',
+        duration:2,
+        ease: "back.out"
+      })
     });
 
     return () => ctx.revert();
   },[]);
+
 
   const TaskItems = taskData.map((taskDetails) => (
     <TaskItem
