@@ -44,6 +44,9 @@ const TaskItem = ({ title, description, since, id, completed }) => {
   useEffect(()=>{
     gsap.to(`.task-item-${id}`, {
       backgroundColor: () => (darkMode ? "#0C134F" : "#E6DDC4"),
+      delay:0.8,
+      duration:0.7,
+      ease:'power3.easeIn'
     });
     
   },[darkMode])
