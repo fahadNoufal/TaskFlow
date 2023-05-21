@@ -12,7 +12,7 @@ const CreateTask = ({ tl=false }) => {
   let editingItem = useSelector((state)=>(state.editingItem.item))
 
   let [title, setTitle] = useState('');
-  let [description, setDescription] = useState('');
+  let [description, setDescription] = useState('no description');
   
   let tl2=useRef()
 
@@ -39,6 +39,8 @@ const CreateTask = ({ tl=false }) => {
         duration:0.5,
         ease:'power3.out' 
       })
+      setTitle(editingItem?editingItem.title:'')
+      setDescription(editingItem?editingItem.description:'')
     }  
   },[editingItem])
   
@@ -50,6 +52,8 @@ const CreateTask = ({ tl=false }) => {
   function handleCloseTaskCreation(){
     tl.current.pause()
     tl.current.reverse()
+    setTitle("");
+    setDescription("");
   }
 
   function handleAddTask(){
