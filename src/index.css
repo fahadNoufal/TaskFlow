@@ -6,6 +6,10 @@ body {
   color: white;
 }
 
+.page-wrapper {
+  height: 100svh;
+}
+
 @media screen and (max-width: 768px) {
   body {
     orientation: portrait;

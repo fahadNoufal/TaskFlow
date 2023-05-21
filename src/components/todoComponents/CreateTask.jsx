@@ -4,17 +4,48 @@ import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { addTask, editTask } from "../../features/taskList/taskListSlice";
 import { gsap } from "gsap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setMessage } from "../../features/message/messageSlice";
 
-const CreateTask = ({ tl ,titleToEdit='',descriptionToEdit='',edit=false,id=0 }) => {
+const CreateTask = ({ tl=false }) => {
+
+  let editingItem = useSelector((state)=>(state.editingItem.item))
+
+  let [title, setTitle] = useState('');
+  let [description, setDescription] = useState('');
+  
+  let tl2=useRef()
+
+  if (!tl){
+    tl=tl2
+  }
+  
+  useEffect(()=>{
+    if (editingItem){
+      tl.current=gsap.timeline()
+      tl.current.to('.task-creation-container',{
+        y:'0',
+        ease:'back.out(0.3)',
+        duration:0.5,
+      })
+      tl.current.to('.black-filter',{
+        height:0,
+        duration:0.3,
+        ease:'power3.out'
+      })
+      tl.current.to('.taskCreate-fields',{
+        y:0,
+        opacity:1,
+        duration:0.5,
+        ease:'power3.out' 
+      })
+    }  
+  },[editingItem])
+  
   const despatch = useDispatch();
   let input1=useRef()
   let input2=useRef()
 
-  const dispatch =useDispatch()
-  
-  
 
   function handleCloseTaskCreation(){
     tl.current.pause()
@@ -25,7 +56,7 @@ const CreateTask = ({ tl ,titleToEdit='',descriptionToEdit='',edit=false,id=0 })
     tl.current.pause()
     tl.current.reverse()
     setTimeout(() => {
-      dispatch(setMessage('New task added!!'))
+      despatch(setMessage('New task added!!'))
     }, '1000');
   }
 // ________________________________________________________________________________________________
@@ -36,12 +67,12 @@ const CreateTask = ({ tl ,titleToEdit='',descriptionToEdit='',edit=false,id=0 })
 
     setTitle("");
     setDescription("");
-    if (edit){
+    if (editingItem){
 
       despatch(editTask({
         title:title,
         description:description,
-        id:id,
+        id:editingItem.id,
       }))
 
     }else{
@@ -56,8 +87,7 @@ const CreateTask = ({ tl ,titleToEdit='',descriptionToEdit='',edit=false,id=0 })
     handleAddTask();
   }
 
-  const [title, setTitle] = useState(edit?titleToEdit:'');
-  const [description, setDescription] = useState(edit?descriptionToEdit:'');
+  
 
   return (
     <div className=" task-creation-container top-0 bottom-0 left-0 right-0 bg-white z-50 shadow-2xl px-10 py-10 flex flex-col md:rounded-2xl absolute ">
@@ -85,7 +115,7 @@ const CreateTask = ({ tl ,titleToEdit='',descriptionToEdit='',edit=false,id=0 })
                 setTitle(el.target.value);
               }}
             />
-            <span className="taskCreate-feild-title">Task Name</span>
+            <span className="taskCreate-feild-title">{editingItem?'New Name ':'Task Name'}</span>
             <i></i>
           </div>
           <div className="inputbox taskCreate-fields">
@@ -105,7 +135,9 @@ const CreateTask = ({ tl ,titleToEdit='',descriptionToEdit='',edit=false,id=0 })
             <i></i>
           </div>
           <button className="AddTask-btn taskCreate-fields " type="submit">
-            Add task{" "}
+            {editingItem.id?'Edit task' :'Add task'}
+            {" "}
+
             <span className="select">
               <PlaylistAddOutlinedIcon />
             </span>{" "}

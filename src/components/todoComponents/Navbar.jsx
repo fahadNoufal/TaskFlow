@@ -92,13 +92,7 @@ const Navbar = () => {
         },
         "<"
       )
-      darkTl.current.to(
-        [".item-container",'.task-item'],
-        {
-          backgroundColor: " #E6DDC4",
-        },
-        "<"
-      )
+ 
       darkTl.current.to(
         ".add-task-btn",
         {
@@ -110,11 +104,6 @@ const Navbar = () => {
       darkTl.current.to(".btn", 
       {
         backgroundColor:'#C780FA'
-      },
-      '<')
-      darkTl.current.to(".text-description", 
-      {
-        fontWeight:'300',
       },
       '<')
     })

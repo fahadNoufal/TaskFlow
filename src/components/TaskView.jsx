@@ -10,27 +10,6 @@ import { gsap } from "gsap";
 
 const TaskView = () => {
 
-
-  //setting the height of the body to the height of the window so that 
-  // the height will not be affected by the navigation bar or other things in the browser
-  // this is mainly to avoid scrolling in mobile devices
-  var body = document.querySelector('body');
-  body.style.height = window.innerHeight + 'px'
-  function changeHeight(){
-    body.style.height = window.innerHeight + 'px'
-  }
-  window.addEventListener("resize", function() {
-    var isMobile = window.matchMedia("(max-width: 767px)").matches;
-  
-    if (isMobile) {
-      var currentHeight = window.innerHeight || document.documentElement.clientHeight;
-      if (currentHeight !== previousHeight) changeHeight();
-      previousHeight = currentHeight;
-    }
-  });
-  var previousHeight = window.innerHeight || document.documentElement.clientHeight;
-
-  //----------------------------------------------------------------------------------
   let tl=useRef()
 
   function handleTaskCreation(){
@@ -56,7 +35,7 @@ const TaskView = () => {
 
   return (
 
-    <div className="relative  page-wrapper bg-bbg h-full  md:h-screen overflow-hidden w-full md:bg-cbg flex justify-center items-center select-none">
+    <div className="relative  page-wrapper bg-bbg  md:h-screen overflow-hidden w-full md:bg-cbg flex justify-center items-center select-none">
       <Menu/>
       <div
         id='task-screen'

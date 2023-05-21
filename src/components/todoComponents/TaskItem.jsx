@@ -9,6 +9,7 @@ import {
 } from "../../features/taskList/taskListSlice";
 import { setMessage } from "../../features/message/messageSlice";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { setEditingItem } from "../../features/editingItem/editingItemSlice";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -18,6 +19,7 @@ const TaskItem = ({ title, description, since, id, completed }) => {
   // to edit the task (delete or change if task is completed)
   let dispatch = useDispatch();
   let darkMode = useSelector((state) => state.darkMode.darkMode);
+  const taskitemDict={ title:title, description:description, id:id }
 
   // to expand the description of the task based on user click
   let [expanded, setExpanded] = useState(false);
@@ -44,8 +46,6 @@ const TaskItem = ({ title, description, since, id, completed }) => {
   useEffect(()=>{
     gsap.to(`.task-item-${id}`, {
       backgroundColor: () => (darkMode ? "#0C134F" : "#E6DDC4"),
-      delay:0.8,
-      duration:0.7,
       ease:'power3.easeIn'
     });
     
@@ -176,7 +176,7 @@ const TaskItem = ({ title, description, since, id, completed }) => {
           {description}
         </p>
         <div className=" ml-5 mr-2 mb-1 task-edit-div flex justify-between gap-2">
-          <button href="none" className=" btn edit-btn flex-1">
+          <button href="none" className=" btn edit-btn flex-1" onClick={()=>{dispatch(setEditingItem(taskitemDict))}} >
             EDIT
           </button>
           <button
