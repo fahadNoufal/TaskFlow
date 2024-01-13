@@ -14,6 +14,9 @@ const Tasks = () => {
   let darkMode=useSelector((state)=>state.darkMode.darkMode)
   
   let taskData = useSelector((state)=>(state.taskList.data))
+  const completedTasks=taskData.filter((item)=>(item.completed)).length
+  const totalTask=taskData.length
+  const progress= Math.round(completedTasks/totalTask*100)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -29,7 +32,7 @@ const Tasks = () => {
         onComplete:()=>{ScrollTrigger.refresh()}
       });
       gsap.to('.progress',{
-        x:'-40%',
+        x:`-${100-progress}%`,
         duration:2,
         ease: "back.out"
       })
@@ -37,6 +40,15 @@ const Tasks = () => {
 
     return () => ctx.revert();
   },[]);
+
+  useEffect(()=>{
+      
+    gsap.to('.progress',{
+      x:`-${100-progress}%`,
+      duration:2,
+      ease: "back.out"
+    })
+  },[taskData])
 
 
   const TaskItems = taskData.map((taskDetails) => (

@@ -8,7 +8,7 @@ const initialState = {
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "21m",
-          completed:false,
+          completed:true,
           id:1,
         },
         {
@@ -16,7 +16,7 @@ const initialState = {
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "1h 7m",
-          completed:false,
+          completed:true,
           id:2,
         },
         {
@@ -40,7 +40,7 @@ const initialState = {
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "2h 11m",
-          completed:false,
+          completed:true,
           id:5,
         },
         {
@@ -88,15 +88,8 @@ const initialState = {
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "4h 4m",
-          completed:false,
+          completed:true,
           id:11,
-        },{
-          title: "river view",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "4h 4m",
-          completed:false,
-          id:12,
         },{
           title: "be a good man",
           description:

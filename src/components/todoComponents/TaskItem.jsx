@@ -48,13 +48,26 @@ const TaskItem = ({ title, description, since, id, completed }) => {
       backgroundColor: () => (darkMode ? "#0C134F" : "#E6DDC4"),
       ease:'power3.easeIn'
     });
+    gsap.to(`.task-item-${id}.completed`, {
+      backgroundColor: () =>
+          darkMode ? "rgba(100, 12, 118, 0.571)" : "#FFE898",
+      ease:'power3.easeIn'
+    });
+    
     
   },[darkMode])
 
   // this useeffect is used to animate and task completion animation based on state
   
+
+
+  //here the is played in the bigining which should be avoided
+
+
   useEffect(() => {
+    const item=document.querySelector(`.task-item-${id}`)
     if (taskCompleted) {
+      item.classList.add("completed");
       gsap.to(`.strike-title-${id}`, {
         opacity: 1,
         duration: 0.5,
@@ -70,6 +83,7 @@ const TaskItem = ({ title, description, since, id, completed }) => {
       });
       dispatch(setMessage("Bravo! Mission Done.."));
     } else {
+      item.classList.remove("completed");
       gsap.to(`.strike-title-${id}`, {
         opacity: 0,
         duration: 0.5,

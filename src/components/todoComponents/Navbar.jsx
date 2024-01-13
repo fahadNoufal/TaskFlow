@@ -32,8 +32,8 @@ const Navbar = () => {
       tl.current.to(".menu-card", {
         x: 0,
         duration:0.7,
-        stagger:0.1,
-        ease: "back.out", 
+        // stagger:0.1,
+        ease: "power3.easeOut", 
       },"<");
       tl.current.fromTo(".menu-container", {
         ease: "back.out",
