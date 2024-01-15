@@ -4,44 +4,36 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     data:[
         {
-          title: "Check your mails",
+          title: "Complete one task",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "21m",
-          completed:true,
+          completed:false,
           id:1,
         },
         {
-          title: "Clean your room",
+          title: "Tap to know more info",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "1h 7m",
-          completed:true,
+          completed:false,
           id:2,
         },
         {
-          title: "Meditate",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "1h 22m",
-          completed:false,
-          id:3,
-        },
-        {
-          title: "Complete your homework",
+          title: "Double tap to complete",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "2h",
           completed:false,
           id:4,
-        },
+        },  
         {
-          title: "Finish django tutorial",
+          title: "Fill the progress bar",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "2h 11m",
-          completed:true,
-          id:5,
+          since: "1h 22m",
+          completed:false,
+          id:3,
         },
         {
           title: "Do laundry",
@@ -52,52 +44,14 @@ const initialState = {
           id:6,
         },
         {
-          title: "Reviw the notes",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "3h 55m",
-          completed:false,
-          id:7,
-        },
-        {
-          title: "Finish the task",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "4h",
-          completed:false,
-          id:8,
-        },
-        {
-          title: "Get on road",
+          title: "Check your mails",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
           since: "4h 4m",
           completed:false,
-          id:9,
+          id:14,
         },
         {
-          title: "Finish the task",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "4h",
-          completed:false,
-          id:10,
-        },
-        {
-          title: "Get on road",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "4h 4m",
-          completed:true,
-          id:11,
-        },{
-          title: "be a good man",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
-          since: "4h 4m",
-          completed:false,
-          id:13,
-        },{
           title: "Review template",
           description:
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus est nesciunt ex provident culpa optio accusamus soluta. Maxime non ipsa, cum delectus minima sequi. Animi eveniet obcaecati eius corrupti vel!",
