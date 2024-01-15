@@ -1,6 +1,6 @@
 {
   "name": "rust-crud-frontend",
-  "homepage" :"https://fahadnoufal.github.io/TaskFlow/",
+  "homepage": "https://fahadnoufal.github.io/TaskFlow/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

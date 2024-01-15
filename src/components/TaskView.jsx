@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, {useRef } from "react";
 import Navbar from "./todoComponents/Navbar";
 import Header from "./todoComponents/Header";
 import Tasks from "./todoComponents/Tasks";
