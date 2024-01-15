@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/TaskFlow/static/css/main.974e0ade.css",
-    "main.js": "/TaskFlow/static/js/main.7522725a.js",
+    "main.css": "/TaskFlow/static/css/main.4e6deef6.css",
+    "main.js": "/TaskFlow/static/js/main.ffaa842d.js",
     "static/js/787.20b2654f.chunk.js": "/TaskFlow/static/js/787.20b2654f.chunk.js",
     "static/media/cyberpunk-graph.webp": "/TaskFlow/static/media/cyberpunk-graph.f5b42b485634b2f0c6e4.webp",
     "static/media/cyberpunk-profile.jpeg": "/TaskFlow/static/media/cyberpunk-profile.7ed2442eebc5a4c2236e.jpeg",
     "index.html": "/TaskFlow/index.html",
-    "main.974e0ade.css.map": "/TaskFlow/static/css/main.974e0ade.css.map",
-    "main.7522725a.js.map": "/TaskFlow/static/js/main.7522725a.js.map",
+    "main.4e6deef6.css.map": "/TaskFlow/static/css/main.4e6deef6.css.map",
+    "main.ffaa842d.js.map": "/TaskFlow/static/js/main.ffaa842d.js.map",
     "787.20b2654f.chunk.js.map": "/TaskFlow/static/js/787.20b2654f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.974e0ade.css",
-    "static/js/main.7522725a.js"
+    "static/css/main.4e6deef6.css",
+    "static/js/main.ffaa842d.js"
   ]
 }
